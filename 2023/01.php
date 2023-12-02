@@ -5,7 +5,7 @@ $input = file(__DIR__."/01_input.txt");
 // FIRST PART
 
 function part1($input) {
-    $calibration = (int) 0;
+    $calibrations = (int) 0;
     
     foreach ($input as $line) {
         $filteredDigits = array_filter(preg_split("/\D+/", $line));
@@ -13,17 +13,17 @@ function part1($input) {
         $firstDigit = (int) substr(reset($filteredDigits), 0, 1);
         $lastDigit = (int) substr(end($filteredDigits), -1);
 
-        $sum = (int) ($firstDigit . $lastDigit);
-        $calibration += $sum;
+        $combination = (int) ($firstDigit . $lastDigit);
+        $calibrations += $combination;
     }
 
-    return $calibration;
+    return $calibrations;
 }
 
 // SECOND PART
 
 function part2($input) { 
-    $calibration = (int) 0;
+    $calibrations = (int) 0;
     
     foreach ($input as $line) {
         $values = str_replace(["oneight", "twone", "eightwo"], [18, 21, 82], $line);
@@ -34,11 +34,11 @@ function part2($input) {
         $firstDigit = (int) substr(reset($filteredDigits), 0, 1);
         $lastDigit = (int) substr(end($filteredDigits), -1);
 
-        $sum = (int) ($firstDigit . $lastDigit);
-        $calibration += $sum;
+        $combination = (int) ($firstDigit . $lastDigit);
+        $calibrations += $combination;
     }
 
-    return $calibration;
+    return $calibrations;
 }
 
 // OUTPUT
