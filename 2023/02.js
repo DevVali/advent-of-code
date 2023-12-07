@@ -1,5 +1,5 @@
 const { readFileSync } = require("node:fs");
-const input = readFileSync(`${__dirname}/02_input.txt`, "utf8").split("\n");
+const input = readFileSync(`${__dirname}/02_input.txt`, "utf8").split("\r\n");
 
 // FIRST PART
 
@@ -12,8 +12,8 @@ function part1(input) {
         const sets = line[1].split(";");
 
         for (let set of sets) {
-            let cubes = { red: 0, green: 0, blue: 0 };
             set = set.split(",");
+            let cubes = { red: 0, green: 0, blue: 0 };
             for (let cube of set) {
                 if (cube.includes("red")) {
                     cubes.red = cubes.red + parseInt(cube);
@@ -39,8 +39,8 @@ function part2(input) {
 
     for (let line of input) {
         line = line.split(":");
-        let cubes = { red: 0, green: 0, blue: 0 };
         const sets = line[1].split(";");
+        let cubes = { red: 0, green: 0, blue: 0 };
 
         for (let set of sets) {
             set = set.split(",");
