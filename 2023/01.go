@@ -1,9 +1,9 @@
 package main
 
 import (
-	"os"
-	"fmt"
 	"bufio"
+	"fmt"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -11,21 +11,11 @@ import (
 
 // FIRST PART
 
-func part1() int {
-	readFile, err := os.Open("./01_input.txt")
-
-    if err != nil {
-        fmt.Println(err)
-    }
-    fileScanner := bufio.NewScanner(readFile)
-
-    fileScanner.Split(bufio.ScanLines)
-
+func part1(input *bufio.Scanner) int {
 	calibrations := 0
 
-    for fileScanner.Scan() {
-        re := regexp.MustCompile("[0-9]+")
-		filteredDigits := re.FindAllString(fileScanner.Text(), -1)
+	for input.Scan() {
+		filteredDigits := regexp.MustCompile("[0-9]+").FindAllString(input.Text(), -1)
 
 		firstDigit := filteredDigits[0][0:1]
 		lastDigit := filteredDigits[len(filteredDigits)-1:][0]
@@ -38,57 +28,41 @@ func part1() int {
 
 		calibrations += combination
 	}
-
-    readFile.Close()
 
 	return calibrations
 }
 
-// SECOND PART
-
-func part2() int {
-	readFile, err := os.Open("./01_input.txt")
-
-    if err != nil {
-        fmt.Println(err)
-    }
-    fileScanner := bufio.NewScanner(readFile)
-
-    fileScanner.Split(bufio.ScanLines)
-
+func part2(input *bufio.Scanner) int {
 	calibrations := 0
 
-    for fileScanner.Scan() {
-		values := fileScanner.Text();
-		
-		replace := map[string]string{
+	for input.Scan() {
+		values := input.Text()
+
+		overlapedNumbers := map[string]string{
 			"oneight": "18",
-			"twone": "21",
+			"twone":   "21",
 			"eightwo": "82",
 		}
-		
-		for s, r := range replace {
-			values = strings.Replace(values, s, r, -1)
-		}
-
-		replace = map[string]string{
-			"one": "1",
-			"two": "2",
+		numbers := map[string]string{
+			"one":   "1",
+			"two":   "2",
 			"three": "3",
-			"four": "4",
-			"five": "5",
-			"six": "6",
+			"four":  "4",
+			"five":  "5",
+			"six":   "6",
 			"seven": "7",
 			"eight": "8",
-			"nine": "9",
+			"nine":  "9",
 		}
-		
-		for s, r := range replace {
+
+		for s, r := range overlapedNumbers {
+			values = strings.Replace(values, s, r, -1)
+		}
+		for s, r := range numbers {
 			values = strings.Replace(values, s, r, -1)
 		}
 
-        re := regexp.MustCompile("[0-9]+")
-		filteredDigits := re.FindAllString(values, -1)
+		filteredDigits := regexp.MustCompile("[0-9]+").FindAllString(values, -1)
 
 		firstDigit := filteredDigits[0][0:1]
 		lastDigit := filteredDigits[len(filteredDigits)-1:][0]
@@ -101,8 +75,6 @@ func part2() int {
 
 		calibrations += combination
 	}
-
-    readFile.Close()
 
 	return calibrations
 }
@@ -110,6 +82,28 @@ func part2() int {
 // OUTPUT
 
 func main() {
-	fmt.Println(part1())
-	fmt.Println(part2())
+	// PREPARE FIRST PART
+	readFile, err := os.Open("./01_input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	input := bufio.NewScanner(readFile)
+	input.Split(bufio.ScanLines)
+
+	// OUTPUT FIRST PART
+	fmt.Println(part1(input))
+
+	// PREPARE SECOND PART
+	readFile, err = os.Open("./01_input.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	input = bufio.NewScanner(readFile)
+	input.Split(bufio.ScanLines)
+
+	// OUTPUT SECOND PART
+	fmt.Println(part2(input))
+
+	// CLOSE FILE
+	readFile.Close()
 }
