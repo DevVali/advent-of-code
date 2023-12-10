@@ -32,6 +32,8 @@ func part1(input *bufio.Scanner) int {
 	return calibrations
 }
 
+// SECOND PART
+
 func part2(input *bufio.Scanner) int {
 	calibrations := 0
 
