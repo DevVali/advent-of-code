@@ -50,13 +50,10 @@ function part2(input) {
                 wins.push(winningNumber);
             }
         }
-
         let cardsMultiplier = multipliers[id - 1];
-
         for (let i = 1; i <= wins.length; i++) {
             multipliers[i + id - 1] += cardsMultiplier;
         }
-
         totalCards += cardsMultiplier;
     }
 
